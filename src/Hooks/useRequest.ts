@@ -15,3 +15,4 @@ export function useRequest<T = unknown>(url: string) {
 
   return { data };
 }
+

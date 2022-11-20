@@ -1,12 +1,16 @@
 import { useEffect, useState } from "react";
-import { Text, View } from "react-native";
+import { FlatList } from "react-native";
+import { PokemonCard } from "../../components/PokemonCard";
 import { api } from "../../services/api";
+import { HomeContainer } from "./styles";
 
 interface PokemonType {
-  type: string;
+  type: {
+    name: string;
+  };
 }
 
-interface Pokemon {
+export interface Pokemon {
   id: number;
   url: string;
   name: string;
@@ -52,10 +56,13 @@ export function Home() {
   }
 
   return (
-    <View>
-      {pokemons.map((pokemon) => (
-        <Text>{pokemon.name}</Text>
-      ))}
-    </View>
+    <HomeContainer>
+      <FlatList
+        data={pokemons}
+        keyExtractor={(pokemon) => pokemon.id.toString()}
+        renderItem={({ item: pokemon }) => <PokemonCard data={pokemon} />}
+        showsVerticalScrollIndicator={false}
+      />
+    </HomeContainer>
   );
 }
